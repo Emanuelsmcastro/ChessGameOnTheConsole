@@ -12,7 +12,7 @@ public class King extends ChessPiece {
 
 	@Override
 	public String toString() {
-		return PieceSymbol.KING.getValue();
+		return getColor().getValue() + PieceSymbol.KING.getValue() + Color.RESET.getValue();
 	}
 
 	
