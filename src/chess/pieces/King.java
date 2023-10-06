@@ -15,5 +15,4 @@ public class King extends ChessPiece {
 		return getColor().getValue() + PieceSymbol.KING.getValue() + Color.RESET.getValue();
 	}
 
-	
 }
