@@ -1,7 +1,7 @@
 package chess.pieces;
 
 public enum PieceSymbol {
-	HOOK("♜"), KING("♚");
+	HOOK("♜"), KING("♔");
 
 	private String value;
 
