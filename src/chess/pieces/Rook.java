@@ -12,7 +12,7 @@ public class Rook extends ChessPiece {
 
 	@Override
 	public String toString() {
-		return getColor().getValue() + PieceSymbol.HOOK.getValue() + Color.RESET.getValue();
+		return getColor().getValue() + PieceSymbol.ROOK.getValue() + Color.RESET.getValue();
 	}
 	
 	

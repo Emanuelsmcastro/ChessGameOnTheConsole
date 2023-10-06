@@ -38,11 +38,11 @@ public class Board {
 		piece.position = position;
 	}
 
-	public boolean positionExists(Position position) {
+	private boolean positionExists(Position position) {
 		return positionExists(position.getRow(), position.getColumn());
 	}
 
-	public boolean thereIsAPiece(Position position) {
+	private boolean thereIsAPiece(Position position) {
 		if(!positionExists(position))
 			throw new BoardException("Position not on the board.");
 		return piece(position) != null;
