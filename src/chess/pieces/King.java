@@ -15,4 +15,10 @@ public class King extends ChessPiece {
 		return getColor().getValue() + PieceSymbol.KING.getValue() + Color.RESET.getValue();
 	}
 
+	@Override
+	public boolean[][] possibleMoves() {
+		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+		return mat;
+	}
+
 }

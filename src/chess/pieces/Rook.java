@@ -14,6 +14,12 @@ public class Rook extends ChessPiece {
 	public String toString() {
 		return getColor().getValue() + PieceSymbol.ROOK.getValue() + Color.RESET.getValue();
 	}
+
+	@Override
+	public boolean[][] possibleMoves() {
+		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+		return mat;
+	}
 	
 	
 }
