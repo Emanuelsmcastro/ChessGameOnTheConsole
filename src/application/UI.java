@@ -30,14 +30,13 @@ public class UI {
 		System.out.println("Turn: " + chessMatch.getTurn());
 		System.out.println(chessMatch.getCurrentPlayer().getValue() + "Waiting player: " + chessMatch.getCurrentPlayer()
 				+ Color.RESET.getValue());
+		if(chessMatch.getCheck()) {
+			System.out.println("CHECK!");
+		}
 	}
 	
 	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
-		printBoard(chessMatch.getPieces());
-		System.out.println();
-		System.out.println("Turn: " + chessMatch.getTurn());
-		System.out.println(chessMatch.getCurrentPlayer().getValue() + "Waiting player: " + chessMatch.getCurrentPlayer()
-				+ Color.RESET.getValue());
+		printMatch(chessMatch);
 		printCapturedPieces(captured);
 	}
 
