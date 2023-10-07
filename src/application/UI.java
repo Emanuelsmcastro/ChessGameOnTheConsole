@@ -1,7 +1,10 @@
 package application;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import chess.ChessMatch;
 import chess.ChessPiece;
@@ -27,6 +30,15 @@ public class UI {
 		System.out.println("Turn: " + chessMatch.getTurn());
 		System.out.println(chessMatch.getCurrentPlayer().getValue() + "Waiting player: " + chessMatch.getCurrentPlayer()
 				+ Color.RESET.getValue());
+	}
+	
+	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
+		printBoard(chessMatch.getPieces());
+		System.out.println();
+		System.out.println("Turn: " + chessMatch.getTurn());
+		System.out.println(chessMatch.getCurrentPlayer().getValue() + "Waiting player: " + chessMatch.getCurrentPlayer()
+				+ Color.RESET.getValue());
+		printCapturedPieces(captured);
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
@@ -76,5 +88,21 @@ public class UI {
 		else
 			System.out.print(piece);
 		System.out.print(" ");
+	}
+	
+	private static void printCapturedPieces(List<ChessPiece> captured) {
+		List<ChessPiece> p1 = captured.stream().filter(cap -> cap.getColor() == Color.BLUE).collect(Collectors.toList());
+		List<ChessPiece> p2 = captured.stream().filter(cap -> cap.getColor() == Color.RED).collect(Collectors.toList());
+		
+		System.out.println("\nCaptured pieces:");
+		System.out.print(Color.BLUE.getValue());
+		System.out.println("Blue: ");
+		System.out.print(Arrays.toString(p1.toArray()));
+		System.out.println(Color.RESET.getValue());
+		
+		System.out.print(Color.RED.getValue());
+		System.out.println("Red: ");
+		System.out.print(Arrays.toString(p2.toArray()));
+		System.out.println(Color.RESET.getValue());
 	}
 }
