@@ -16,6 +16,7 @@ public class ChessMatch {
 	private Color currentPlayer;
 	private Board board;
 	private boolean check;
+	private boolean checkMate;
 
 	private List<Piece> piecesOnTheBoard = new ArrayList<>();
 	private List<Piece> capturedPieces = new ArrayList<>();
@@ -33,6 +34,10 @@ public class ChessMatch {
 
 	public boolean getCheck() {
 		return check;
+	}
+
+	public boolean getCheckMate() {
+		return checkMate;
 	}
 
 	public Color getCurrentPlayer() {
@@ -63,8 +68,11 @@ public class ChessMatch {
 		}
 
 		check = testCheck(opponent(currentPlayer)) ? true : false;
-
-		nextTurn();
+		checkMate = testCheckMate(opponent(currentPlayer)) ? true: false;
+		
+		if(!checkMate)
+			nextTurn();
+		
 		return (ChessPiece) capturedPiece;
 	}
 
@@ -111,8 +119,14 @@ public class ChessMatch {
 
 	private void initialSetup() {
 		placeNewPiece('a', 1, new Rook(board, Color.BLUE));
+		placeNewPiece('b', 5, new Rook(board, Color.BLUE));
 		placeNewPiece('a', 4, new King(board, Color.RED));
 		placeNewPiece('b', 1, new King(board, Color.BLUE));
+		placeNewPiece('a', 5, new Rook(board, Color.BLUE));
+		placeNewPiece('d', 5, new Rook(board, Color.BLUE));
+		placeNewPiece('b', 2, new Rook(board, Color.BLUE));
+		placeNewPiece('c', 3, new Rook(board, Color.BLUE));
+		placeNewPiece('d', 3, new Rook(board, Color.BLUE));
 	}
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
@@ -136,6 +150,31 @@ public class ChessMatch {
 			}
 		}
 		return false;
+	}
+	
+	private boolean testCheckMate(Color color) {
+		if(!testCheck(color))
+			return false;
+		List<Piece> opponentPieces = piecesOnTheBoard.stream()
+				.filter(x -> ((ChessPiece) x).getColor() == color).collect(Collectors.toList());
+		for (Piece p : opponentPieces) {
+			boolean[][] mat = p.possibleMoves();
+			for(int r = 0; r < mat.length; r++) {
+				for(int c = 0; c < mat.length; c++) {
+					if(mat[r][c]) {
+						Position source = ((ChessPiece) p).getChessPosition().toPosition();
+						Position target = new Position(r, c);
+						Piece capturedPiece = makeMove(source, target);
+						
+						boolean testCheck = testCheck(color);
+						undoMove(source, target, capturedPiece);
+						if(!testCheck)
+							return false;
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 	private Color opponent(Color color) {

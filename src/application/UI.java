@@ -28,13 +28,18 @@ public class UI {
 		printBoard(chessMatch.getPieces());
 		System.out.println();
 		System.out.println("Turn: " + chessMatch.getTurn());
-		System.out.println(chessMatch.getCurrentPlayer().getValue() + "Waiting player: " + chessMatch.getCurrentPlayer()
-				+ Color.RESET.getValue());
-		if(chessMatch.getCheck()) {
-			System.out.println("CHECK!");
+		if (chessMatch.getCheckMate()) {
+			System.out.println("CHECKMATE!");
+			System.out.println("Winner: " + chessMatch.getCurrentPlayer());
+		} else {
+			System.out.println(chessMatch.getCurrentPlayer().getValue() + "Waiting player: " + chessMatch.getCurrentPlayer()
+			+ Color.RESET.getValue());
+			if (chessMatch.getCheck()) {
+				System.out.println("CHECK!");
+			}
 		}
 	}
-	
+
 	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
 		printMatch(chessMatch);
 		printCapturedPieces(captured);
@@ -88,17 +93,18 @@ public class UI {
 			System.out.print(piece);
 		System.out.print(" ");
 	}
-	
+
 	private static void printCapturedPieces(List<ChessPiece> captured) {
-		List<ChessPiece> p1 = captured.stream().filter(cap -> cap.getColor() == Color.BLUE).collect(Collectors.toList());
+		List<ChessPiece> p1 = captured.stream().filter(cap -> cap.getColor() == Color.BLUE)
+				.collect(Collectors.toList());
 		List<ChessPiece> p2 = captured.stream().filter(cap -> cap.getColor() == Color.RED).collect(Collectors.toList());
-		
+
 		System.out.println("\nCaptured pieces:");
 		System.out.print(Color.BLUE.getValue());
 		System.out.println("Blue: ");
 		System.out.print(Arrays.toString(p1.toArray()));
 		System.out.println(Color.RESET.getValue());
-		
+
 		System.out.print(Color.RED.getValue());
 		System.out.println("Red: ");
 		System.out.print(Arrays.toString(p2.toArray()));
