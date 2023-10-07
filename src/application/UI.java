@@ -102,12 +102,12 @@ public class UI {
 		System.out.println("\nCaptured pieces:");
 		System.out.print(Color.BLUE.getValue());
 		System.out.println("Blue: ");
-		System.out.print(Arrays.toString(p1.toArray()));
-		System.out.println(Color.RESET.getValue());
+		System.out.print(Color.RESET.getValue());
+		System.out.println(Arrays.toString(p1.toArray()));
 
 		System.out.print(Color.RED.getValue());
 		System.out.println("Red: ");
-		System.out.print(Arrays.toString(p2.toArray()));
-		System.out.println(Color.RESET.getValue());
+		System.out.print(Color.RESET.getValue());
+		System.out.println(Arrays.toString(p2.toArray()));
 	}
 }
