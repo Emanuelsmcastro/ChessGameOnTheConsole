@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import chess.ChessPiece;
 import chess.ChessPosition;
+import chess.Color;
 
 public class UI {
 
@@ -31,13 +32,38 @@ public class UI {
 		System.out.println("   a b c d e f g h");
 	}
 
+	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
+		System.out.println();
+		for (int r = 0; r < pieces.length; r++) {
+			System.out.print(" " + (8 - r) + " ");
+			for (int c = 0; c < pieces.length; c++) {
+				printPiece(pieces[r][c], possibleMoves[r][c]);
+			}
+			System.out.println();
+		}
+		System.out.println("   a b c d e f g h");
+	}
+
 	public static void clearScreen() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 	}
+
 	private static void printPiece(ChessPiece piece) {
 		if (piece == null)
 			System.out.print("-");
+		else
+			System.out.print(piece);
+		System.out.print(" ");
+	}
+
+	private static void printPiece(ChessPiece piece, boolean possibleMove) {
+		if (piece == null && possibleMove)
+			System.out.print(Color.GREEN_BACKGROUND.getValue() + "-" + Color.RESET.getValue());
+		else if (piece == null)
+			System.out.print("-");
+		else if (piece != null && possibleMove)
+			System.out.print(Color.GREEN_BACKGROUND.getValue() + piece + Color.RESET.getValue());
 		else
 			System.out.print(piece);
 		System.out.print(" ");
